@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public float turnSmoothing = 15f;
 	public float speedDampTime = 0.1f;
+	public bool isSprinting;
 
 	public float endurance = 10f;
 	public bool exhausted = false;
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 		Vector3 movement = new Vector3 (horiz, 0.0f, vert);
 		Rigidbody playerBody = this.GetComponent<Rigidbody>();
 
+		isSprinting = false;
+
 		if (endurance <= 0f) {
 			exhausted = true;
 			endurance = 0f;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (sprint && vert >= 0f && !exhausted) {
+			isSprinting = true;
 			speed = 6f;
 			endurance -= .05f;
 		} else {

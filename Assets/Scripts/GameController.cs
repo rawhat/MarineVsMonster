@@ -6,17 +6,22 @@ public class GameController : MonoBehaviour {
 
 	TerminalController[] terminals;
 
+	private GameObject player;
+	private PlayerHealth playerHealth;
 	private UIController uiController;
-	private bool isOver;
+	private bool isOver = false;
 
 	void Start () {
+		player = GameObject.FindGameObjectWithTag ("Player");
+		playerHealth = player.GetComponent<PlayerHealth> ();
 		uiController = GameObject.FindObjectOfType<UIController> ();
 		terminals = (TerminalController[]) GameObject.FindObjectsOfType (typeof(TerminalController));
+
 	}
 
 	void Update () {
-		if (uiController.getSecondsRemaining () == 0) {
-			GameOver();
+		if (uiController.getSecondsRemaining () == 0 || playerHealth.isDead) {
+			GameOver(false);
 			return;
 		}
 		foreach(TerminalController term in terminals){
@@ -24,12 +29,12 @@ public class GameController : MonoBehaviour {
 				return;
 			}
 		}
-		GameOver ();
+		GameOver (true);
 	}
 
-	void GameOver(){
+	void GameOver(bool playerWin){
 		isOver = true;
-		uiController.ShowGameOverText ();
+		uiController.ShowGameOverText (playerWin);
 	}
 
 	public bool isGameOver(){

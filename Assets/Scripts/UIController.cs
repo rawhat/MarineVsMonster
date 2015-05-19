@@ -71,7 +71,9 @@ public class UIController : MonoBehaviour {
 		activationBarObj.SetActive (false);
 	}
 
-	public void ShowGameOverText(){
+	public void ShowGameOverText(bool playerWon){
+		if (playerWon)
+			gameOverText.text = "You win!";
 		gameOverText.enabled = true;
 	}
 
