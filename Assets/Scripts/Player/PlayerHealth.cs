@@ -5,10 +5,11 @@ public class PlayerHealth : MonoBehaviour {
 	public float health = 2f;
 	public bool isDead = false;
 
-	void MonsterHit(){
+	public void MonsterHit(){
+		Debug.Log ("hit!");
 		if (!isDead) {
 			health -= 1f;
-			if (health == 0)
+			if (health <= 0f)
 				isDead = true;
 		}
 	}

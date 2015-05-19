@@ -11,6 +11,7 @@ public class EnemySight : MonoBehaviour {
 	private GameObject player;
 	private Vector3 prevSighting;
 	private PlayerController playerController;
+	private PlayerHealth playerHealth;
 
 	private static Vector3 resetPosition = new Vector3(1000f, 1000f, 1000f);
 
@@ -19,6 +20,7 @@ public class EnemySight : MonoBehaviour {
 		col = GetComponent<SphereCollider> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerController = player.GetComponent<PlayerController> ();
+		playerHealth = player.GetComponent<PlayerHealth> ();
 
 		lastSighting = resetPosition;
 		prevSighting = resetPosition;
@@ -29,6 +31,9 @@ public class EnemySight : MonoBehaviour {
 			playerInSight = false;
 
 			Vector3 dir = obj.transform.position - transform.position;
+			if(dir.magnitude <= 1.425f && !playerHealth.isDead)
+				playerHealth.MonsterHit();
+
 			float angle = Vector3.Angle(dir, transform.forward);
 
 			if(angle < fovAngle * 0.5f){

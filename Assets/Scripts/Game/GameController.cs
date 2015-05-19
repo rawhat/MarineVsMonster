@@ -10,9 +10,11 @@ public class GameController : MonoBehaviour {
 	private PlayerHealth playerHealth;
 	private UIController uiController;
 	private bool isOver = false;
+	private EnemyAI monsterAI;
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
+		monsterAI = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyAI> ();
 		playerHealth = player.GetComponent<PlayerHealth> ();
 		uiController = GameObject.FindObjectOfType<UIController> ();
 		terminals = (TerminalController[]) GameObject.FindObjectsOfType (typeof(TerminalController));
@@ -34,6 +36,7 @@ public class GameController : MonoBehaviour {
 
 	void GameOver(bool playerWin){
 		isOver = true;
+		monsterAI.gameOver = true;
 		uiController.ShowGameOverText (playerWin);
 	}
 

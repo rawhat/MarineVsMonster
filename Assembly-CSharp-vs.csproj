@@ -46,16 +46,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\EnemyAI.cs" />
-     <Compile Include="Assets\PlayerHealth.cs" />
-     <Compile Include="Assets\Scripts\EnemySight.cs" />
-     <Compile Include="Assets\Scripts\GameController.cs" />
-     <Compile Include="Assets\Scripts\LastPlayerSighting.cs" />
-     <Compile Include="Assets\Scripts\MenuController.cs" />
-     <Compile Include="Assets\Scripts\MyMouseLook.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\TerminalController.cs" />
-     <Compile Include="Assets\Scripts\UIController.cs" />
+     <Compile Include="Assets\EnemyAttack.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyAI.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemySight.cs" />
+     <Compile Include="Assets\Scripts\Enemy\LastPlayerSighting.cs" />
+     <Compile Include="Assets\Scripts\Game\GameController.cs" />
+     <Compile Include="Assets\Scripts\Game\MenuController.cs" />
+     <Compile Include="Assets\Scripts\Game\UIController.cs" />
+     <Compile Include="Assets\Scripts\Player\MyMouseLook.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\Terminal\TerminalController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>H:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

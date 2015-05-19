@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour {
 	public float chaseWaitTime = 5f;
 	public float patrolWaitTime = 1f;
 	public Transform[] patrolWayPoints;
+	public bool gameOver = false;
 
 	private EnemySight enemySight;
 	private NavMeshAgent nav;
@@ -24,10 +25,13 @@ public class EnemyAI : MonoBehaviour {
 	}
 
 	void Update(){
-		if (enemySight.lastSighting != lastSighting.resetPosition)
-			Chasing ();
-		else
-			Patrolling ();
+		if (!gameOver) {
+			if (enemySight.lastSighting != lastSighting.resetPosition)
+				Chasing ();
+			else
+				Patrolling ();
+		} else
+			nav.Stop ();
 	}
 
 	void Chasing(){
