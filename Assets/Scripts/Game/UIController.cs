@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour {
 	private Text gameOverText;
 	public Text gameClock;
 	private RawImage playerHurt;
+	public float gameDurationMinutes = 5f;
 
 	public float playerEndurance;
 	private float timeLeftInSeconds;
@@ -40,7 +41,7 @@ public class UIController : MonoBehaviour {
 		gameOverText.enabled = false;
 		playerHurt.enabled = false;
 
-		timeLeftInSeconds = 1.1f * 60f;
+		timeLeftInSeconds = gameDurationMinutes * 60;
 	}
 
 	void Update () {
