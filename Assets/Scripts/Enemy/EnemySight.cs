@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class EnemySight : MonoBehaviour {
-	public float fovAngle = 110f;
+	public float fovAngle = 180f;
 	public bool playerInSight;
 	public Vector3 lastSighting;
 
@@ -12,6 +12,7 @@ public class EnemySight : MonoBehaviour {
 	private Vector3 prevSighting;
 	private PlayerController playerController;
 	private PlayerHealth playerHealth;
+	private float attackDelay;
 
 	private static Vector3 resetPosition = new Vector3(1000f, 1000f, 1000f);
 
@@ -22,8 +23,15 @@ public class EnemySight : MonoBehaviour {
 		playerController = player.GetComponent<PlayerController> ();
 		playerHealth = player.GetComponent<PlayerHealth> ();
 
+		attackDelay = 5f;
+
 		lastSighting = resetPosition;
 		prevSighting = resetPosition;
+	}
+
+	void Update(){
+		if (attackDelay <= 5f)
+			attackDelay += 2f * Time.deltaTime;
 	}
 
 	void OnTriggerStay(Collider obj){
@@ -31,8 +39,10 @@ public class EnemySight : MonoBehaviour {
 			playerInSight = false;
 
 			Vector3 dir = obj.transform.position - transform.position;
-			if(dir.magnitude <= 1.425f && !playerHealth.isDead)
+			if(dir.magnitude <= 1.425f && !playerHealth.isDead && attackDelay >= 5f){
 				playerHealth.MonsterHit();
+				attackDelay = 0.0f;
+			}
 
 			float angle = Vector3.Angle(dir, transform.forward);
 

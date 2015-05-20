@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour {
 	private PlayerController playerScript;
 	private TerminalController[] terminalScript;
 	private GameController gameController;
+	private PlayerHealth playerHealth;
 
 	private GameObject activationBarObj;
 	public Slider activationBar;
@@ -15,6 +16,7 @@ public class UIController : MonoBehaviour {
 	private Text activationText;
 	private Text gameOverText;
 	public Text gameClock;
+	private RawImage playerHurt;
 
 	public float playerEndurance;
 	private float timeLeftInSeconds;
@@ -22,22 +24,31 @@ public class UIController : MonoBehaviour {
 	void Start(){
 		playerScript = FindObjectOfType<PlayerController>();
 		gameController = FindObjectOfType<GameController> ();
+		playerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerHealth> ();
 
 		endBar = GameObject.Find("EnduranceSlider").GetComponent<Slider> ();
 		activationBarObj = GameObject.Find ("ActivationSlider").gameObject;
 		activationBar = activationBarObj.GetComponent<Slider> ();
-		activationBarObj.SetActive (false);
 
 		activationText = GameObject.Find ("ActivateText").GetComponent<Text> ();
-		activationText.enabled = false;
-
 		gameOverText = GameObject.Find ("GameOverText").GetComponent<Text> ();
+
+		playerHurt = this.GetComponent<RawImage> ();
+
+		activationBarObj.SetActive (false);
+		activationText.enabled = false;
 		gameOverText.enabled = false;
+		playerHurt.enabled = false;
 
 		timeLeftInSeconds = 1.1f * 60f;
 	}
-	
+
 	void Update () {
+		if (playerHealth.isHurt)
+			playerHurt.enabled = true;
+		else
+			playerHurt.enabled = false;
+
 		if (!gameController.isGameOver ()) {
 			timeLeftInSeconds -= Time.deltaTime;
 			int minutes = ((int)timeLeftInSeconds) / 60;

@@ -16,13 +16,12 @@ public class GameController : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		monsterAI = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyAI> ();
 		playerHealth = player.GetComponent<PlayerHealth> ();
-		uiController = GameObject.FindObjectOfType<UIController> ();
+		uiController = GameObject.FindObjectOfType<UIController>();
 		terminals = (TerminalController[]) GameObject.FindObjectsOfType (typeof(TerminalController));
-
 	}
 
 	void Update () {
-		if (uiController.getSecondsRemaining () == 0 || playerHealth.isDead) {
+		if (uiController.getSecondsRemaining() <= 0 || playerHealth.isDead) {
 			GameOver(false);
 			return;
 		}
