@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour {
 	private TerminalController[] terminalScript;
 	private GameController gameController;
 	private PlayerHealth playerHealth;
+	private MyMouseLook playerLook;
 
 	private GameObject activationBarObj;
 	public Slider activationBar;
@@ -17,15 +18,21 @@ public class UIController : MonoBehaviour {
 	private Text gameOverText;
 	public Text gameClock;
 	private RawImage playerHurt;
+	private GameObject restartLevel;
+	private GameObject quitToMenu;
+
 	public float gameDurationMinutes = 5f;
 
 	public float playerEndurance;
 	private float timeLeftInSeconds;
+
+	private bool menuShowing = false;
 	
 	void Start(){
 		playerScript = FindObjectOfType<PlayerController>();
 		gameController = FindObjectOfType<GameController> ();
 		playerHealth = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerHealth> ();
+		playerLook = Camera.main.GetComponent<MyMouseLook> ();
 
 		endBar = GameObject.Find("EnduranceSlider").GetComponent<Slider> ();
 		activationBarObj = GameObject.Find ("ActivationSlider").gameObject;
@@ -34,6 +41,13 @@ public class UIController : MonoBehaviour {
 		activationText = GameObject.Find ("ActivateText").GetComponent<Text> ();
 		gameOverText = GameObject.Find ("GameOverText").GetComponent<Text> ();
 
+		GameObject[] buttonGroup = GameObject.FindGameObjectsWithTag ("UIButton");
+		restartLevel = buttonGroup [0];
+		quitToMenu = buttonGroup [1];
+
+		restartLevel.SetActive (false);
+		quitToMenu.SetActive (false);
+
 		playerHurt = this.GetComponent<RawImage> ();
 
 		activationBarObj.SetActive (false);
@@ -41,10 +55,19 @@ public class UIController : MonoBehaviour {
 		gameOverText.enabled = false;
 		playerHurt.enabled = false;
 
+
 		timeLeftInSeconds = gameDurationMinutes * 60;
 	}
 
 	void Update () {
+		if (!menuShowing && Input.GetButton("Menu")) {
+			ShowMenuButtons ();
+			menuShowing = true;
+		} else if (menuShowing && Input.GetButton ("Menu")) {
+			HideMenuButtons ();
+			menuShowing = false;
+		}
+
 		if (playerHealth.isHurt)
 			playerHurt.enabled = true;
 		else
@@ -89,8 +112,20 @@ public class UIController : MonoBehaviour {
 		gameOverText.enabled = true;
 	}
 
-	public void HideGameOverText(){
-		gameOverText.enabled = false;
+	public void ShowMenuButtons(){
+		playerLook.enabled = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		restartLevel.SetActive(true);
+		quitToMenu.SetActive(true);
+	}
+
+	public void HideMenuButtons(){
+		playerLook.enabled = true;
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+		restartLevel.SetActive(false);
+		quitToMenu.SetActive(false);
 	}
 
 	public int getSecondsRemaining(){

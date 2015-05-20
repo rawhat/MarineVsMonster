@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour {
 	private int wayPointIndex;
 
 	void Awake(){
+
 		enemySight = GetComponent<EnemySight> ();
 		nav = GetComponent<NavMeshAgent> ();
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
@@ -42,12 +43,14 @@ public class EnemyAI : MonoBehaviour {
 		nav.speed = chaseSpeed;
 
 		if (nav.remainingDistance < nav.stoppingDistance) {
+
 			chaseTimer += Time.deltaTime;
 
 			if (chaseTimer > chaseWaitTime) {
 				lastSighting.position = lastSighting.resetPosition;
 				enemySight.lastSighting = lastSighting.resetPosition;
 				chaseTimer = 0f;
+
 			}
 		} else
 			chaseTimer = 0f;

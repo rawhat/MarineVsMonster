@@ -7,12 +7,16 @@ public class GameController : MonoBehaviour {
 	TerminalController[] terminals;
 
 	private GameObject player;
+
 	private PlayerHealth playerHealth;
 	private UIController uiController;
 	private bool isOver = false;
 	private EnemyAI monsterAI;
 
 	void Start () {
+		AudioSource menuMusic = GameObject.Find ("MenuMusic").GetComponent<AudioSource>();
+		if (menuMusic)
+			Destroy (menuMusic);
 		player = GameObject.FindGameObjectWithTag ("Player");
 		monsterAI = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyAI> ();
 		playerHealth = player.GetComponent<PlayerHealth> ();
@@ -42,4 +46,5 @@ public class GameController : MonoBehaviour {
 	public bool isGameOver(){
 		return isOver;
 	}
+
 }

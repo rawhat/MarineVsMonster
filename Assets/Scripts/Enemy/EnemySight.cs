@@ -13,10 +13,14 @@ public class EnemySight : MonoBehaviour {
 	private PlayerController playerController;
 	private PlayerHealth playerHealth;
 	private float attackDelay;
+	private AudioSource monsterRoar;
+	private bool alreadyRoared = false;
+
 
 	private static Vector3 resetPosition = new Vector3(1000f, 1000f, 1000f);
 
 	void Awake(){
+		monsterRoar = GetComponent<AudioSource> ();
 		nav = GetComponent<NavMeshAgent> ();
 		col = GetComponent<SphereCollider> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -51,6 +55,10 @@ public class EnemySight : MonoBehaviour {
 
 				if(Physics.Raycast(transform.position + (transform.up * 0.5f), dir.normalized, out hit, col.radius)){
 					if(hit.collider.gameObject == player){
+						if(!alreadyRoared){
+							monsterRoar.Play();
+							alreadyRoared = true;
+						}
 						playerInSight = true;
 						lastSighting = player.transform.position;
 					}
@@ -66,8 +74,10 @@ public class EnemySight : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider obj){
-		if (obj.gameObject == player)
+		if (obj.gameObject == player) {
+			alreadyRoared = false;
 			playerInSight = false;
+		}
 	}
 
 	float PathLength(Vector3 targetPos){
