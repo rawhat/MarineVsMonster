@@ -1,9 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\UIController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game\UIController.cs" Line="66" Column="44" />
-      <File FileName="Assets\Scripts\Game\GameController.cs" Line="39" Column="29" />
+      <File FileName="Assets\Scripts\Game\GameController.cs" Line="45" Column="45" />
+      <File FileName="Assets\Scripts\PodController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Terminal\TerminalController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\UIController.cs" Line="115" Column="30" />
+      <File FileName="Assets\Thomas\loadonclick.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

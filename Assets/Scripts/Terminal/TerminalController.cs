@@ -34,6 +34,7 @@ public class TerminalController : MonoBehaviour {
 		if (obj.attachedRigidbody == GameObject.FindWithTag ("Player").GetComponent<Rigidbody> ()) {
 			uiController.HideActivationText ();
 			uiController.HideActivationBar();
+			uiController.activationSliderImage.color = Color.blue;
 		}
 	}
 
@@ -46,6 +47,7 @@ public class TerminalController : MonoBehaviour {
 				if(activationLevel >= 1f){
 					activated = true;
 					uiController.activationSliderImage.color = Color.green;
+					uiController.SendMessage("ActivateTerminal");
 				}
 			}
 			else{

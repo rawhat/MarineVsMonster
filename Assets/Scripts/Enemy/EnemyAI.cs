@@ -18,7 +18,6 @@ public class EnemyAI : MonoBehaviour {
 	private int wayPointIndex;
 
 	void Awake(){
-
 		enemySight = GetComponent<EnemySight> ();
 		nav = GetComponent<NavMeshAgent> ();
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
@@ -62,11 +61,12 @@ public class EnemyAI : MonoBehaviour {
 		if (nav.destination == lastSighting.resetPosition || nav.remainingDistance < nav.stoppingDistance) {
 			patrolTimer += Time.deltaTime;
 
-			if (patrolTimer >= patrolWaitTime) {
+			if (patrolTimer >= patrolWaitTime) {/*
 				if (wayPointIndex == patrolWayPoints.Length - 1)
 					wayPointIndex = 0;
 				else
-					wayPointIndex++;
+					wayPointIndex++;*/
+				wayPointIndex = Random.Range(0, patrolWayPoints.Length - 1);
 				patrolTimer = 0f;
 			}
 		} else

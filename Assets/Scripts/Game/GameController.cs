@@ -14,14 +14,17 @@ public class GameController : MonoBehaviour {
 	private EnemyAI monsterAI;
 
 	void Start () {
-		AudioSource menuMusic = GameObject.Find ("MenuMusic").GetComponent<AudioSource>();
-		if (menuMusic)
-			Destroy (menuMusic);
+		if (GameObject.Find ("MenuMusic")) {
+			AudioSource menuMusic = GameObject.Find ("MenuMusic").GetComponent<AudioSource> ();
+			if (menuMusic)
+				Destroy (menuMusic);
+		}
 		player = GameObject.FindGameObjectWithTag ("Player");
 		monsterAI = GameObject.FindGameObjectWithTag ("Enemy").GetComponent<EnemyAI> ();
 		playerHealth = player.GetComponent<PlayerHealth> ();
-		uiController = GameObject.FindObjectOfType<UIController>();
+		uiController = GameObject.FindWithTag ("HUD").GetComponent<UIController> ();
 		terminals = (TerminalController[]) GameObject.FindObjectsOfType (typeof(TerminalController));
+		uiController.SendMessage ("SetTerminals", terminals.Length);
 	}
 
 	void Update () {
@@ -34,7 +37,6 @@ public class GameController : MonoBehaviour {
 				return;
 			}
 		}
-		GameOver (true);
 	}
 
 	void GameOver(bool playerWin){

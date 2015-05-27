@@ -20,6 +20,9 @@ public class UIController : MonoBehaviour {
 	private RawImage playerHurt;
 	private GameObject restartLevel;
 	private GameObject quitToMenu;
+	private Text numOfTerminals;
+	private int numTerms;
+	private int activeTerminals = 0;
 
 	public float gameDurationMinutes = 5f;
 
@@ -55,15 +58,16 @@ public class UIController : MonoBehaviour {
 		gameOverText.enabled = false;
 		playerHurt.enabled = false;
 
+		numOfTerminals = GameObject.Find ("NumTerminals").GetComponent<Text> ();
 
 		timeLeftInSeconds = gameDurationMinutes * 60;
 	}
 
 	void Update () {
-		if (!menuShowing && Input.GetButton("Menu")) {
+		if (!menuShowing && Input.GetButtonDown("Menu")) {
 			ShowMenuButtons ();
 			menuShowing = true;
-		} else if (menuShowing && Input.GetButton ("Menu")) {
+		} else if (menuShowing && Input.GetButtonDown ("Menu")) {
 			HideMenuButtons ();
 			menuShowing = false;
 		}
@@ -74,6 +78,8 @@ public class UIController : MonoBehaviour {
 			playerHurt.enabled = false;
 
 		if (!gameController.isGameOver ()) {
+			if(activeTerminals == numTerms)
+				numOfTerminals.color = Color.green;
 			timeLeftInSeconds -= Time.deltaTime;
 			int minutes = ((int)timeLeftInSeconds) / 60;
 			int seconds = ((int)timeLeftInSeconds % 60);
@@ -130,5 +136,14 @@ public class UIController : MonoBehaviour {
 
 	public int getSecondsRemaining(){
 		return (int)timeLeftInSeconds;
+	}
+
+	void SetTerminals(int totalTerminals){
+		numTerms = totalTerminals;
+	}
+
+	void ActivateTerminal(){
+		activeTerminals += 1;
+		numOfTerminals.text = activeTerminals.ToString() + " of " + numTerms.ToString ();
 	}
 }
